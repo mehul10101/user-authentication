@@ -1,6 +1,6 @@
-package com.project.uberAuthentication.repository;
+package com.project.userAuthentication.repository;
 
-import com.project.uberAuthentication.entities.UserEntity;
+import com.project.userAuthentication.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

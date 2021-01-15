@@ -1,9 +1,7 @@
-package com.project.uberAuthentication.pojo;
+package com.project.userAuthentication.pojo.requests;
 
 import lombok.Data;
 import lombok.NonNull;
-
-import java.util.List;
 
 @Data
 public class SignUpRequest {
@@ -13,6 +11,9 @@ public class SignUpRequest {
     private String password;
     @NonNull
     private String userName;
-    private List<String> roles;
+    @NonNull
+    private String phoneNumber;
+    @NonNull
+    private String name;
 
 }

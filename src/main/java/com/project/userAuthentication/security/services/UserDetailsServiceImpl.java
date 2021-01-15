@@ -1,7 +1,7 @@
-package com.project.uberAuthentication.security.services;
+package com.project.userAuthentication.security.services;
 
-import com.project.uberAuthentication.entities.UserEntity;
-import com.project.uberAuthentication.repository.UserRepository;
+import com.project.userAuthentication.entities.UserEntity;
+import com.project.userAuthentication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

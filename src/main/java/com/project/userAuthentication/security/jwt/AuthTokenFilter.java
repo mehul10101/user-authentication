@@ -1,6 +1,6 @@
-package com.project.uberAuthentication.security.jwt;
+package com.project.userAuthentication.security.jwt;
 
-import com.project.uberAuthentication.security.services.UserDetailsServiceImpl;
+import com.project.userAuthentication.security.services.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

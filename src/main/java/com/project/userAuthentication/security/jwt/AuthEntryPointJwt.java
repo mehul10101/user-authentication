@@ -1,4 +1,4 @@
-package com.project.uberAuthentication.security.jwt;
+package com.project.userAuthentication.security.jwt;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

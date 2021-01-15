@@ -1,8 +1,8 @@
-package com.project.uberAuthentication.security;
+package com.project.userAuthentication.security;
 
-import com.project.uberAuthentication.security.jwt.AuthEntryPointJwt;
-import com.project.uberAuthentication.security.jwt.AuthTokenFilter;
-import com.project.uberAuthentication.security.services.UserDetailsServiceImpl;
+import com.project.userAuthentication.security.jwt.AuthEntryPointJwt;
+import com.project.userAuthentication.security.jwt.AuthTokenFilter;
+import com.project.userAuthentication.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,8 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-			.authorizeRequests().antMatchers("/v1/auth/**").permitAll()
-			.antMatchers("/api/test/**").permitAll()
+			.authorizeRequests().antMatchers("/auth/**").permitAll()
+//			.antMatchers("/api/**").permitAll()
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

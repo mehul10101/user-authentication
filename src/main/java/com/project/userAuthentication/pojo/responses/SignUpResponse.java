@@ -1,4 +1,4 @@
-package com.project.uberAuthentication.pojo;
+package com.project.userAuthentication.pojo.responses;
 
 import lombok.Data;
 

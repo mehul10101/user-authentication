@@ -1,6 +1,6 @@
-package com.project.uberAuthentication.security.jwt;
+package com.project.userAuthentication.security.jwt;
 
-import com.project.uberAuthentication.security.services.UserDetailsImpl;
+import com.project.userAuthentication.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

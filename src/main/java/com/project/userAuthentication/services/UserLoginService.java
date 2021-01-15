@@ -1,11 +1,11 @@
-package com.project.uberAuthentication.services;
+package com.project.userAuthentication.services;
 
-import com.project.uberAuthentication.entities.UserEntity;
-import com.project.uberAuthentication.pojo.LoginRequest;
-import com.project.uberAuthentication.pojo.LoginResponse;
-import com.project.uberAuthentication.repository.UserRepository;
-import com.project.uberAuthentication.security.jwt.JwtUtils;
-import com.project.uberAuthentication.utils.ApiError;
+import com.project.userAuthentication.entities.UserEntity;
+import com.project.userAuthentication.pojo.requests.LoginRequest;
+import com.project.userAuthentication.pojo.responses.LoginResponse;
+import com.project.userAuthentication.repository.UserRepository;
+import com.project.userAuthentication.security.jwt.JwtUtils;
+import com.project.userAuthentication.utils.ApiError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,12 +23,10 @@ import java.util.Optional;
 @Service
 @Component
 @Slf4j
-public class LoginService {
+public class UserLoginService {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private MyUserDetailService userDetailService;
     @Autowired
     private JwtUtils jwtUtil;
     @Autowired

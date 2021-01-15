@@ -1,4 +1,4 @@
-package com.project.uberAuthentication.pojo;
+package com.project.userAuthentication.pojo.responses;
 
 import lombok.Data;
 
@@ -6,6 +6,5 @@ import lombok.Data;
 public class LoginResponse {
     private Long id;
     private String token;
-    private String role;
 
 }

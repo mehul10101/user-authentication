@@ -1,4 +1,4 @@
-package com.project.uberAuthentication.utils;
+package com.project.userAuthentication.utils;
 
 import org.springframework.http.HttpStatus;
 
