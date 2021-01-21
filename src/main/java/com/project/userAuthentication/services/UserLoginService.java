@@ -56,11 +56,11 @@ public class UserLoginService {
     //to validate userName and password using BCrypt
     private UserEntity getUserEntityAndValidateUserNameAndPassword(LoginRequest loginRequest, Optional<UserEntity> userOptional) throws ApiError {
         if(!userOptional.isPresent()){
-            throw new ApiError(HttpStatus.UNPROCESSABLE_ENTITY, "email not registered", "email not registered");
+            throw new ApiError(HttpStatus.UNPROCESSABLE_ENTITY, "email not registered");
         }
         UserEntity userEntity = userOptional.get();
         if(!BCrypt.checkpw(loginRequest.getPassword(), userEntity.getPassword())){
-            throw new ApiError(HttpStatus.UNPROCESSABLE_ENTITY, "password doesn't match", "password doesn't match");
+            throw new ApiError(HttpStatus.UNPROCESSABLE_ENTITY, "password doesn't match");
         }
         return userEntity;
     }

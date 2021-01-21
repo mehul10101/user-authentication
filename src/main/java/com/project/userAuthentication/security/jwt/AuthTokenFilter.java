@@ -1,5 +1,7 @@
 package com.project.userAuthentication.security.jwt;
 
+import com.project.userAuthentication.entities.UserEntity;
+import com.project.userAuthentication.repository.UserRepository;
 import com.project.userAuthentication.security.services.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +18,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
 	@Autowired
 	private JwtUtils jwtUtils;
+
+	@Autowired
+	private UserRepository userRepository;
 
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
@@ -31,9 +37,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		try {
 			String jwt = parseJwt(request);
+			String userIdString = request.getHeader("userId");
+			if(userIdString == null || userIdString.isEmpty()){throw new RuntimeException("user id not present in param");}
+			Long userId = Long.valueOf(request.getParameter("userId"));
+			Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
+			if(!userEntityOptional.isPresent()){throw new RuntimeException("user not present");}
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
 				String username = jwtUtils.getUserNameFromJwtToken(jwt);
-
+				if(!userEntityOptional.get().getUserName().equals(username)){throw new RuntimeException("request is not for the same user");}
 				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
