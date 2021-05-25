@@ -35,25 +35,29 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        if (request.getRequestURL().toString().contains("/auth")) {
-            return;
-        }
-//		try {
+
         String jwt = parseJwt(request);
         String userIdString = request.getHeader("userId");
-        if (userIdString == null || userIdString.isEmpty()) {
+        if (request.getRequestURL().toString().contains("/auth")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        if (!request.getRequestURL().toString().contains("/auth") && userIdString == null) {
             throw new RuntimeException("user id not present in param");
         }
-        Long userId = Long.valueOf(request.getHeader("userId"));
-        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
-        if (!userEntityOptional.isPresent()) {
-            throw new RuntimeException("user not present");
-        }
-        if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+        String username = jwtUtils.getUserNameFromJwtToken(jwt);
+        if(userIdString != null) {
+            Long userId = Long.valueOf(userIdString);
+            Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
+            if (!userEntityOptional.isPresent()) {
+                throw new RuntimeException("user not present");
+            }
             if (!userEntityOptional.get().getUserName().equals(username)) {
                 throw new RuntimeException("request is not for the same user");
             }
+        }
+        if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
@@ -61,9 +65,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-//		} catch (Exception e) {
-//			logger.error("Cannot set user authentication: ", e);
-//		}
 
         filterChain.doFilter(request, response);
     }

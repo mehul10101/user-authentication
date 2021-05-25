@@ -33,7 +33,8 @@ public class BookingController {
 
     // request ride
     @PostMapping(value = "/requestRide")
-    public void requestRide(@RequestHeader ("userId") String userIdString, @RequestBody UserRideRequest userRideRequest) throws IOException {
+    public void requestRide(@RequestHeader ("userId") String userIdString,
+                            @RequestBody UserRideRequest userRideRequest) throws IOException {
         Long userId = Long.valueOf(userIdString);
         UserEntity userEntity = userRepository.findById(userId).get();
         userRideRequest.setId(userId);
