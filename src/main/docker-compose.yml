@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  user-auth:
+    image: user-auth:latest
+    container_name: user-auth
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/uber
+    ports:
+      - 7000:7000
+
+  db:
+    image: 'postgres:12.7-alpine'
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=uber
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
+    restart: always
