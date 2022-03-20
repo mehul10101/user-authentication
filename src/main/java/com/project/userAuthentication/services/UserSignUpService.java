@@ -14,11 +14,15 @@ import org.springframework.stereotype.Service;
 @Component
 public class UserSignUpService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final RegistrationUtil registrationUtil;
 
     @Autowired
-    private RegistrationUtil registrationUtil;
+    public UserSignUpService(UserRepository userRepository,
+                             RegistrationUtil registrationUtil){
+        this.userRepository = userRepository;
+        this.registrationUtil = registrationUtil;
+    }
 
     // business logic for sign up with some validations
     public SignUpResponse signUp(SignUpRequest signUpRequest) {

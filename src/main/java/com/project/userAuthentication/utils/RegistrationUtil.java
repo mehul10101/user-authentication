@@ -11,8 +11,12 @@ import java.util.regex.Pattern;
 @Component
 public class RegistrationUtil {
 
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+        private RegistrationUtil(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
 
 
     public SignUpResponse emailUserNamePasswordUserValidations(SignUpRequest signUpRequest, SignUpResponse signUpResponse) {

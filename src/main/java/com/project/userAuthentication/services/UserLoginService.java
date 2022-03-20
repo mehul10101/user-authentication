@@ -25,12 +25,19 @@ import java.util.Optional;
 @Slf4j
 public class UserLoginService {
 
+    private final UserRepository userRepository;
+    private final JwtUtils jwtUtil;
+    private final AuthenticationManager authenticationManager;
+
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private JwtUtils jwtUtil;
-    @Autowired
-    AuthenticationManager authenticationManager;
+    public UserLoginService(UserRepository userRepository,
+                            JwtUtils jwtUtil,
+                            AuthenticationManager authenticationManager){
+        this.userRepository = userRepository;
+        this.jwtUtil = jwtUtil;
+        this.authenticationManager = authenticationManager;
+    }
+
 
     public LoginResponse signIn(LoginRequest loginRequest) throws ApiError {
         Optional<UserEntity> userOptional = userRepository.findFirstByUserName(loginRequest.getUserName());
