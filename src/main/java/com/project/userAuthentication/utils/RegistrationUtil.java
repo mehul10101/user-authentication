@@ -14,21 +14,21 @@ public class RegistrationUtil {
     private final UserRepository userRepository;
 
     @Autowired
-        private RegistrationUtil(UserRepository userRepository){
+    public RegistrationUtil(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
 
     public SignUpResponse emailUserNamePasswordUserValidations(SignUpRequest signUpRequest, SignUpResponse signUpResponse) {
-        if(userRepository.findFirstByEmail(signUpRequest.getEmail()).isPresent() || !isValid(signUpRequest.getEmail())){
+        if (userRepository.findFirstByEmail(signUpRequest.getEmail()).isPresent() || !isValid(signUpRequest.getEmail())) {
             signUpResponse.setResponseMessage("email not valid or already signed up");
             return signUpResponse;
         }
-        if(userRepository.findFirstByUserName(signUpRequest.getUserName()).isPresent()){
-            signUpResponse.setResponseMessage("please try with different user name, "+ signUpRequest.getUserName() +" this is already taken");
+        if (userRepository.findFirstByUserName(signUpRequest.getUserName()).isPresent()) {
+            signUpResponse.setResponseMessage("please try with different user name, " + signUpRequest.getUserName() + " this is already taken");
             return signUpResponse;
         }
-        if (signUpRequest.getPassword().length() < 8){
+        if (signUpRequest.getPassword().length() < 8) {
             signUpResponse.setResponseMessage("password too short please give alteast 8 characters");
             return signUpResponse;
         }
@@ -36,15 +36,13 @@ public class RegistrationUtil {
     }
 
     // basic regex to valid email: https://www.geeksforgeeks.org/check-email-address-valid-not-java/
-    private static boolean isValid(String email){
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+    private static boolean isValid(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +
                 "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
                 "A-Z]{2,7}$";
 
         Pattern pat = Pattern.compile(emailRegex);
-        if (email == null)
-            return false;
         return pat.matcher(email).matches();
 
     }

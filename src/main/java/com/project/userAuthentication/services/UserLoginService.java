@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 // The service class will contain the business logic and will talk directly to the rest end point
@@ -70,6 +71,14 @@ public class UserLoginService {
             throw new ApiError(HttpStatus.UNPROCESSABLE_ENTITY, "password doesn't match");
         }
         return userEntity;
+    }
+
+    public int addNumbers(List<Integer> numbers){
+        int ans = 0;
+        for (Integer number: numbers) {
+            ans += number;
+        }
+        return ans;
     }
 
 }
